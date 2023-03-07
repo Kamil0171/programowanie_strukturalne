@@ -1,1 +1,78 @@
+Zad 1. Obliczanie wyznacznikow, z macierzy 2x2, z ukladu rownan
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int a,b,c,d,e,f;
+    scanf("%d%d%d%d%d%d",&a,&b,&c,&d,&e,&f);
+    printf("Zdefinowales uklad rownan\n");
+    printf("%d*x+%d*y=%d\n",a,b,c);
+    printf("%d*x+%d*y=%d",d,e,f);
+
+    int W,Wx,Wy,x,y;
+    W = a * e - b * d;
+    Wx = c * e - b * f;
+    Wy = a * f - c * d;
+
+    if(W == 0)
+    {
+        if(Wx == 0 && Wy == 0)
+        {
+            printf("\nUklad nieoznaczony, nieskonczenie wiele rozwiazan.");
+        }
+        else
+        {
+            printf("\nUklad jest sprzeczny, brak rozwiazania.");
+        }
+    }
+    else
+    {
+        x = (float)(Wx)/W;
+        y = (float)(Wy)/W;
+        printf("\nRozwiazaniem ukladu jest x= %f, y= %f",x,y);
+    }
+
+
+    return 0;
+}
+
+Zad 2. Rownanie kwadratowe, obliczanie delty
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+    int a,b,c;
+    printf("Podaj wspolczynniki:\n");
+    scanf("%d%d%d",&a,&b,&c);
+    printf("Rownanie kwadratowe ma postac:\n");
+    printf("%dx^2 + %dx + %d = 0",a,b,c);
+
+    int delta = b * b - 4 * a * c;
+    float x1,x2;
+    if(delta > 0)
+    {
+        x1 = (-b + sqrt(delta)) / (2 * a);
+        x1 = (-b - sqrt(delta)) / (2 * a);
+        printf("\nRownanie ma dwa rozwiazania x1 = %f lub x2 = %f", x1,x2);
+    }
+    else if(delta == 0)
+    {
+        x1 = (-b) / (2 * a);
+        printf("\nRownanie ma 1 rozwiazanie x1 = %f", x1);
+    }
+    else
+    {
+        printf("\nBrak rozwiazania");
+    }
+
+
+    return 0;
+}
+
+Zad 3. Wielokrotnosci liczby
 
