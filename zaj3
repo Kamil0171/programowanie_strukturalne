@@ -1,1 +1,133 @@
+Zad 1. Liczby doskonale
 
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+  int p,x,d,s;
+  for(p = 1; p < 20; p++)
+  {
+    x = (pow(2,p)-1)*pow(2,p-1);
+    s = 1;
+    for(d = 2; d <= sqrt(x); d++)
+    {
+      if(x % d == 0)
+      {
+        s = s + d + x / d;
+      }
+    }
+    if(s == x)
+    {
+      printf("%d, ",x);
+    }
+  }
+  return 0;
+}
+
+Zad 2. Program ktory  wypisuje wartosc bezwzgledna z liczby n
+
+#include <stdio.h>
+
+int wartosc_bezwzgledna(int x)
+{
+  if(x < 0)
+  {
+    return - x;
+  }
+  else
+  {
+    return x;
+  }
+}
+
+int main()
+{
+  int n;
+  scanf("%d",&n);
+  printf("|%d| = %d",n,wartosc_bezwzgledna(n));
+  return 0;
+}
+
+Zad 3. Program, ktory ma wypisac liczbe n silnia
+
+#include <stdio.h>
+
+unsigned int silnia(unsigned int x)
+{
+  unsigned int wynik = 1;
+  int i;
+  for(i = 2; i <= x; i++)
+  {
+    wynik = wynik * i;
+  }
+  return wynik;
+}
+
+int main()
+{
+  unsigned int n;
+  scanf("%d",&n);
+  printf("%d! = %d",n,silnia(n));
+  return 0;
+}
+
+OPCJA 2
+
+#include <stdio.h>
+
+unsigned int silnia(unsigned int x)
+{
+  if(x == 0)
+    return 1;
+      return x*silnia(x-1);
+}
+
+int main()
+{
+  unsigned int n;
+  scanf("%d",&n);
+  printf("%d! = %d",n,silnia(n));
+  return 0;
+}
+
+Zad 4. funckja wykladnicza
+
+#include <stdio.h>
+
+unsigned int dwadopotegi(unsigned int x)
+{
+  if(x == 0)
+    return 1;
+      return 2*dwadopotegi(x-1);
+}
+
+int main()
+{
+  unsigned int n;
+  scanf("%d",&n);
+  printf("2^%d = %d",n,dwadopotegi(n));
+  return 0;
+}
+
+Zad 4. Program, ktory przeliczby _ z pierwiastka n
+
+#include <stdio.h>
+
+unsigned int podlogazpierwiastka(unsigned int x)
+{
+  int i;
+  for(i = 0; i * i <= x; i++)
+  {
+
+  }
+  return i - 1;
+}
+
+int main()
+{
+  int n;
+  scanf("%d",&n);
+  printf("podloga z pierwiastka (%d) = %d",n,podlogazpierwiastka(n));
+  return 0;
+}
