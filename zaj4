@@ -46,3 +46,343 @@ int main()
 
 Zad 3. Funkcja silnia, rekurencyjnie
 
+#include <stdio.h>
+#include <stdlib.h>
+
+int silnia(int n)
+{
+  if(n == 0)
+  {
+    return 1;
+  }
+  return n*silnia(n - 1);
+}
+
+int main()
+{
+  printf("%d\n",silnia(0));
+  printf("%d\n",silnia(6));
+  printf("%d\n",silnia(4));
+  printf("%d\n",silnia(1));
+
+  return 0;
+}
+
+Zad 4. Ciag zdefiniowany rekurencyjnie, program ktory bedzie wypisywac wyrazy tego ciagu
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n == 0)
+  {
+    return 1;
+  }
+  else
+  {
+    return 2 * wyraz(n-1)+5;
+  }
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d, ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 5. Rekrurencja o dwa wyrazy wstecz
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n == 0 || n == 1)
+  {
+    return 1;
+  }
+  else
+  {
+    return wyraz(n-1)+2*wyraz(n-2)+3;
+  }
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d, ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 6. Napisz funckje rekrurencyjna, wartosc ciagu fibonnaciego, pierwsze 15 wyrazow
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n <= 1)
+  {
+    return 1;
+  }
+  else
+  {
+    return wyraz(n-1)+wyraz(n-2);
+  }
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 15; i++)
+  {
+    printf("%d, ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 7. Ciag Tribbonaciego
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n <= 2)
+  {
+    return 1;
+  }
+  else
+  {
+    return wyraz(n-1)+wyraz(n-2)+wyraz(n-3);
+  }
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 8. Kazdy kolejny wyraz ma byc suma poprzednich
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n == 0)
+  {
+    return 1;
+  }
+  else if(n == 1)
+  {
+    return 2;
+  }
+  int wynik = 0;
+  int i;
+  for(i = 0; i < n; i++)
+  {
+    wynik = wynik + wyraz(i);
+  }
+  return wynik;
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 9. Ciag, w ktorym dwa pierwsze wyrazy to 1, nastepny wyraz jesli jest o indeksie parzystym to powstaje przy dodaniu poprzedniego indeksu, a jesli nieparzysty to poprzez pomnozenie idenksu
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n <= 1)
+  {
+    return 1;
+  }
+  if(n % 2 == 0)
+  {
+    return wyraz(n-1)+n;
+  }
+  else
+  {
+    return wyraz(n-1)*n;
+  }
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 7; i++)
+  {
+    printf("%d ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 10.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n)
+{
+  if(n <= 2)
+  {
+    return 1;
+  }
+  if(n % 3 == 0)
+  {
+    return wyraz(n-1)+wyraz(n-2);
+  }
+  else if(n % 3 == 1)
+  {
+    return 5 * wyraz(n-1) + 4;
+  }
+  else
+  {
+    return wyraz(n-1) + 1;
+  }
+}
+
+int main()
+{
+  int i;
+
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d ",wyraz(i));
+  }
+
+  return 0;
+}
+
+Zad 11. Zerowy wyraz to x, a pierwszy y, liczymy tak jak w ciagu fibbonaciego
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n, int x, int y)
+{
+  if(n == 0)
+  {
+    return x;
+  }
+  if(n == 1)
+  {
+    return y;
+  }
+  return wyraz(n-1,x,y)+wyraz(n-2,x,y);
+}
+
+int main()
+{
+  int i;
+  int x = 2;
+  int y = 7;
+
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d ",wyraz(i,x,y));
+  }
+
+  return 0;
+}
+
+Zad 12. Podaj wyraz startowy, ma wypisywac ciag, az do momentu wypisania 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n, int x)
+{
+  if(n == 0)
+  {
+    return x;
+  }
+  if(wyraz(n - 1,x) % 2 == 0)
+  {
+    return wyraz(n-1,x)/2;
+  }
+  else
+  {
+    return 3*wyraz(n-1,x)+1;
+  }
+}
+
+int main()
+{
+  int i;
+  int x = 101;
+
+  for(i = 0; i <= 30; i++)
+  {
+    printf("%d ",wyraz(i,x));
+  if(wyraz(i,x) == 1)
+  {
+    break;
+  }
+  }
+  return 0;
+}
+
+Zad 13. Rekurencja dwoch zmiennych
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int wyraz(int n, int m)
+{
+  if(m == 0)
+  {
+    return n;
+  }
+  else if(n == 0)
+  {
+    return m;
+  }
+  else
+  {
+    return wyraz(n-1,m-1)+wyraz(n-1,m)+wyraz(n,m-1);
+  }
+}
+
+int main()
+{
+  printf("%d",wyraz(2,5));
+
+  return 0;
+}
