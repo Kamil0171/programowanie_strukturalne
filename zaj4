@@ -1,1 +1,48 @@
+Zad 1. Zlicz
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void zlicz()
+{
+  static int liczba = 0;
+  liczba++;
+  printf("Te funkcje wywolano %d razy\n",liczba);
+}
+
+int main()
+{
+  zlicz();
+  zlicz();
+  zlicz();
+  zlicz();
+  zlicz();
+  return 0;
+}
+
+Zad 2. Napizs funkcje ktora wczytuje liczbe calkowite i zwraca wartosc, powinna wypisywac wszystkie wartosci zsumowane
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int zsumuj(int x)
+{
+  static int suma = 0;
+  suma = suma + x;
+  printf("Te funkcje wywolano %d razy\n",suma);
+  return x;
+}
+
+int main()
+{
+  zsumuj(5);
+  zsumuj(3);
+  zsumuj(8);
+  zsumuj(2);
+  zsumuj(1);
+
+  return 0;
+}
+
+Zad 3. Funkcja silnia, rekurencyjnie
 
