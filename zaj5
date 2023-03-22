@@ -1,1 +1,257 @@
+Zad 0.
 
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+// zapytanie o adres
+  int liczba = -505;
+  printf("Wartosc zmiennej to: %d\n", liczba);
+  printf("Adres zmiennej to: %p\n\n", &liczba);
+// operator wyluskania, deklaracja wskaznika
+  int *wskaznik = &liczba;
+  printf("Wartosc zmiennej to: %d\n", liczba);
+  printf("Adres zmiennej to: %p\n",&liczba);
+  printf("Adres przechowywany we wskazniku to: %p\n", wskaznik);
+  printf("Wskazywana wartosc to: %d\n", *wskaznik);
+// wskazniki na stala i stale wskazniki
+  int i = 0;
+  const int *a = &i; // wskaznik na stala, nie zmieniamy wartosci
+  int * const b = &i; // staly wskaznik, nie mozna przestawic
+  int const * const c = &i; // staly wskaznik na stala
+// *a = 1; // nie mozna zmieniac wartosci wskazanej wskaznikowi
+*b = 1; // tu kompilator nie protestuje
+a = b; // ok
+// b = a; // nie mozna zmienic adresu stalego wskaznika
+a = &liczba; // ok
+// b = &liczba // niedozwolone
+}
+
+Zad 1. Napisz funkcje, ktora otrzymuje argumenty jako wskazniki
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int minimum(int *x, int *y)
+{
+  if(*x < *y)
+  {
+    return *x;
+  }
+  else
+  {
+    return *y;
+  }
+}
+
+int main()
+{
+  int a = 7, b = 4;
+  printf("%d",minimum(&a,&b));
+}
+
+Zad 2. Napisz funkje, ktora zwraca jako wskaznik na zmienna przechowujaca zmienna z liczb wskazywana przez argumenty
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int* minimum(int *x, int *y)
+{
+  if(*x < *y)
+  {
+    return x;
+  }
+  else
+  {
+    return y;
+  }
+}
+
+int main()
+{
+  int a = 7, b = 24;
+  printf("%p\n",&a);
+  printf("%p\n",&b);
+  printf("%p",minimum(&a,&b));
+
+  return 0;
+}
+
+Zad 3. Funkcja swapujaca, przyjmuje dwa argumenty, zamien wartosci wskazywanych zmiennych
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void zamiana(int *x, int *y)
+{
+  int temp;
+  temp = *x;
+  *x = *y;
+  *y = temp;
+}
+
+int main()
+{
+  int a = 7, b = 24;
+  printf("Przed zamianie:\n");
+  printf("a = %d\n",a);
+  printf("b = %d\n",b);
+  zamiana(&a,&b);
+  printf("Po zamianie:\n");
+  printf("a = %d\n",a);
+  printf("b = %d\n",b);
+
+  return 0;
+}
+
+Zad 4. Napisz funkcje, ktora zamienia ze soba wartosci wskazywanych zmiennych, jesli zmienna jest mniejsza od drugiej zmiennej
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void zamiana_gdy_druga_mniejsza(int *x, int *y)
+{
+  if(*x > *y)
+  {
+  int t;
+  t = *x;
+  *x = *y;
+  *y = t;
+  }
+}
+
+int main()
+{
+  int a = 37, b = 24;
+  printf("Przed zamianie:\n");
+  printf("a = %d\n",a);
+  printf("b = %d\n",b);
+  zamiana_gdy_druga_mniejsza(&a,&b);
+  printf("Po zamianie:\n");
+  printf("a = %d\n",a);
+  printf("b = %d\n",b);
+
+  return 0;
+}
+
+Zad 5. Zwracana wartosc jest suma wartosci wskazana przez argumenty
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void suma_stalych(const int *x, const int *y)
+{
+ return *x + *y;
+}
+
+int main()
+{
+  const int a = 37;
+  const int b = 24;
+  printf("%d",suma_stalych(&a,&b));
+
+  return 0;
+}
+
+Zad 6. Funckaj przepisz, wskaznik na intach, pod adres w drugim argumencie przepisz wartosc
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void przepisz(int n, int *x)
+{
+  *x = n;
+}
+
+int main()
+{
+  int a = 37;
+  przepisz(15,&a);
+  printf("%d",a);
+
+  return 0;
+}
+
+Zad 7. Bezargumentowa funkcja, rezerwuje pamiec dla int, zwracaj
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int* rezerwuj()
+{
+ return malloc(sizeof(int));
+}
+
+int main()
+{
+  int* wsk = rezerwuj();
+  printf("%p",wsk);
+  return 0;
+}
+
+Zad 8. To samo co wyzej ale teraz z float
+
+#include <stdio.h>
+#include <stdlib.h>
+
+float* rezerwuj_float()
+{
+ return malloc(sizeof(int));
+}
+
+int main()
+{
+  float* wsk = rezerwuj_float();
+  printf("%p",wsk);
+  return 0;
+}
+
+Zad 9. Przepisz stala, do drugiej zmiennej
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void przepisz_stala(const int* x, int* y)
+{
+ *y = *x;
+}
+
+int main()
+{
+  const int a = 5;
+  int b = 19;
+  przepisz_stala(&a,&b);
+  printf("a = %d\n",a);
+  printf("b = %d",b);
+
+  return 0;
+}
+
+Zad 10.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+double funckja(double (*fun)(int x), int y)
+{
+  return fun(y);
+}
+
+// funckja testowa
+double testowa(int x)
+{
+  return x * x;
+}
+
+int main()
+{
+  int x = 5;
+  printf("%f\n", testowa(x));
+  double(*wskaznikdofunkcji)(int);
+  wskaznikdofunkcji = &testowa;
+  printf("%p\n",wskaznikdofunkcji);
+  printf("%f\n",funkcja(wskaznikdofunkcji,8));
+
+  return 0;
+}
