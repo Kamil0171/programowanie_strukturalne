@@ -1,1 +1,284 @@
+Zad 0.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/// napewno przyda sie funckja wypisz
+void wypisz(unsigned int n, int * tab) /// tab[0]; tab[1]; ... ; tab
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+int main()
+{
+  /// cw 4.2.0
+  printf("\n\n cw 4_2_0\n\n");
+  int rozmiar = 4;
+  int tab[rozmiar];
+  tab[0] = 6; tab[1] = 2; tab[2] = 5; tab[3] = 8;
+  wypisz(rozmiar,tab);
+  printf("%d\n",*tab);
+  int tab2[] = {9,5,7,3};
+  wypisz(rozmiar,tab2);
+  printf("%d\n",tab2[2]);
+}
+
+Zad 1. Napisz funckje, ktora otrzymuje 2 argumenty, liczba n i tablica. Wyzeruj elementy tablicy
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void wypisz(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+void zeruj(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    tab[i] = 0;
+  }
+}
+
+int main()
+{
+  int tab[] = {8,2,5,1,0,9};
+  wypisz(6,tab);
+  zeruj(6,tab);
+  wypisz(6,tab);
+
+  return 0;
+}
+
+Zad 2. Podwajanie elementow tablicy
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void wypisz(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+void podwoj(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    tab[i] = 2*tab[i];
+  }
+}
+
+int main()
+{
+  int tab[] = {8,2,5,1,0,9};
+  wypisz(6,tab);
+  podwoj(6,tab);
+  wypisz(6,tab);
+
+  return 0;
+}
+
+Zad 3. Zamien na wartosci bezwzgledne
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void wypisz(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+void bezwzgledne(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    tab[i] = abs(tab[i]);
+  }
+}
+
+int main()
+{
+  int tab[] = {8,2,-5,1,0,-9};
+  wypisz(6,tab);
+  bezwzgledne(6,tab);
+  wypisz(6,tab);
+
+  return 0;
+}
+
+Zad 4. Przelicz wartosci za pomoca tablicy. Ma zwracac sume elementow tablicy, typ int
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void wypisz(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+int suma(unsigned int n, int * tab)
+{
+  int i;
+  int suma = 0;
+  for(int i = 0; i < n; i++)
+  {
+    suma = suma + tab[i];
+  }
+  return suma;
+}
+
+int main()
+{
+  int tab[] = {8,2,-5,1,0,-9};
+  wypisz(6,tab);
+  printf("%d",suma(6,tab));
+
+  return 0;
+}
+
+Zad 5. Zwroc srednia geometryczna tablicy
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+void wypisz(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+float sredniageo(unsigned int n, int * tab)
+{
+  int i;
+  int suma = 1;
+  for(int i = 0; i < n; i++)
+  {
+    suma = suma * tab[i];
+  }
+  return pow(suma,1.0/n);
+}
+
+int main()
+{
+  int tab[] = {8,2,5,1,9};
+  wypisz(5,tab);
+  printf("%f",sredniageo(5,tab));
+
+  return 0;
+}
+
+Zad 6. Srednia harmoniczna z tablicy
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+void wypisz(unsigned int n, int * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+float sredniaharmoniczna(unsigned int n, int * tab)
+{
+  int i;
+  float suma = 0;
+  for(int i = 0; i < n; i++)
+  {
+    suma = suma + 1.0/tab[i];
+  }
+  return n/suma;
+}
+
+int main()
+{
+  int tab[] = {8,2,5,1,9};
+  wypisz(5,tab);
+  printf("%f",sredniaharmoniczna(5,tab));
+
+  return 0;
+}
+
+Zad 7. Sito Erastostenesa
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
+
+void wypisz(unsigned int n, bool * tab)
+{
+  int i;
+  for(int i = 0; i < n; i++)
+  {
+    printf("%d\t",tab[i]);
+  }
+  printf("\n");
+}
+
+void sito(unsigned int n)
+{
+  bool tab[n];
+  int i;
+  for(i = 0; i < n; i++)
+  {
+    tab[i] = true;
+  }
+  int j,k;
+  for(int j = 2; j < n; j++)
+  {
+    if(tab[j])
+    {
+      for(k = 2*j; k < n; k = k + j)
+      {
+        tab[k] = false;
+      }
+    }
+  }
+  wypisz(n,tab);
+}
+
+int main()
+{
+  sito(100);
+}
+
 
