@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, j, isPrime;
+    printf("Podaj liczbę n: ");
+    scanf("%d", &n);
+    printf("Liczby pierwsze mniejsze od %d: ", n);
+    
+    // Pętla przechodząca przez liczby od 2 do n-1
+    for (i = 2; i < n; i++) {
+        isPrime = 1; // Zakładamy, że i jest liczbą pierwszą
+        // Sprawdzamy, czy liczba i jest podzielna przez jakąś inną liczbę od 2 do i-1
+        for (j = 2; j < i; j++) {
+            if (i % j == 0) {
+                isPrime = 0; // i jest podzielne przez inną liczbę niż 1 i i, więc nie jest liczbą pierwszą
+                break;
+            }
+        }
+        // Jeśli isPrime jest wciąż ustawione na 1, to i jest liczbą pierwszą
+        if (isPrime == 1) {
+            printf("%d ", i);
+        }
+    }
+    return 0;
+}
