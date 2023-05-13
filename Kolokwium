@@ -1,1 +1,299 @@
+Zad 1
+Napisz program, który wczytuje ze standardowego wejścia cztery liczby całkowite x,y,z,w. Program ma wypisać na standardowym wyjściu odpowiednią informację o wczytanym układzie:
+"nic", jeśli podano cztery różne wartości;
+"para", jeśli dwie spośród wartości są równe i różne od pozostałych, które są także różne od siebie;
+"dwie pary", jeśli dwie spośród wartości są równe oraz pozostałe dwie także są sobie równe, ale różne od poprzednich;
+"trojka", jeśli trzy spośród podanych wielkości są równe oraz różne od czwartej;
+"kareta", jeśli wszystkie podane wielkości są równe;
+Dla wartości 5,8,5,5 program wypisze "trojka".
+Dla wartości 6,4,4,6 program wypisze "dwie pary".
+Dla wartości 7,7,7,7 program wypisze "kareta".
+Dla wartości 2,9,4,1 program wypisze "nic".
+Dla wartości 2,3,8,2 pogram wypisze "para".
 
+#include <stdio.h>
+
+int main()
+{
+    int x,y,z,w;
+    scanf("%d %d %d %d", &x, &y, &z, &w);
+
+    if(x == y && y == z && z == w)
+    {
+        printf("kareta\n");
+    }
+    else if((x == y && z == w && x != z) || (x == z && y == w && x != y) || (x == w && y == z && x != y))
+    {
+        printf("dwie pary\n");
+    }
+    else if((x == y && y == z && x != w) || (x == y && y == w && x != z) || (x == z && z == w && x != y) || (y == z && z == w && y != x))
+    {
+        printf("trojka\n");
+    }
+    else if(x != y && x != z && x != w && y != z && y != w && z != w)
+    {
+        printf("nic\n");
+    }
+    else
+    {
+        printf("para\n");
+    }
+
+    return 0;
+}
+
+Zad 2
+Napisz program, który spośród wszystkich całkowitych nieujemnych liczb trzycyfrowych odnajdzie tą która ma najwięcej dzielników. W przypadku gdyby było kilka takich liczb wystarczy znaleźć dowolną z nich. Wyświetlić tą liczbę jej wszystkie dzielniki oraz informację ile ich jest.
+
+#include <stdio.h>
+
+int main()
+{
+    int najw_dzielnik = 0;
+    int liczba_najw_dzielnik = 0;
+
+    for(int i = 100; i < 1000; i++)
+    {
+        int dzielniki = 0;
+        for(int j = 1; j <= i; j++)
+        {
+            if(i % j == 0)
+            {
+                dzielniki++;
+            }
+        }
+        if(dzielniki > najw_dzielnik)
+        {
+            najw_dzielnik = dzielniki;
+            liczba_najw_dzielnik = i;
+        }
+    }
+    printf("Liczba o najwiekszej ilosci dzielnikow: %d\n", liczba_najw_dzielnik);
+    printf("Dzielniki: ");
+    int dzielniki = 0;
+    for(int j = 1; j <= liczba_najw_dzielnik; j++)
+    {
+        if(liczba_najw_dzielnik % j == 0)
+        {
+            printf("%d ", j);
+            dzielniki++;
+        }
+    }
+    printf("\nLiczba dzielnikow: %d\n",dzielniki);
+
+    return 0;
+}
+
+
+Zad 3
+Napisać funkcję cyfrawybrana o dwóch argumentach n oraz k, będącymi nieujemnymi liczbami całkowitymi. Funkcja ma zwracać k-tą w kolejności od lewej cyfrę w zapisie dziesiętnym liczby n lub 0 gdy liczba n ma mniej niż k cyfr. W rozwiązaniu nie używać funkcji bibliotecznych poza operacjami wejścia i wyjścia. Na przykład cyfrawybrana(5824,3) = 2, bo trzecią cyfrą od lewej w liczbie 5824 jest 2. Przetestować działanie funkcji na wybranych wartościach, wczytanych na standardowym wejściu i wyświetlić jej wynik przy pomocy standardowego wyjścia.
+
+#include <stdio.h>
+
+int cyfrawybrana(int n, int k)
+{
+    int cyfra = 0;
+    int temp = n;
+    while(temp != 0)
+    {
+        cyfra++;
+        temp /= 10;
+    }
+    if(cyfra < k)
+    {
+        return 0;
+    }
+    temp = n;
+    int i = 0;
+    while(i < cyfra - k)
+    {
+        temp /= 10;
+        i++;
+    }
+    return temp % 10;
+}
+
+int main()
+{
+    int n,k;
+    printf("Podaj liczbe n oraz liczbe k:\n ");
+    scanf("%d %d", &n, &k);
+    int wynik = cyfrawybrana(n,k);
+    printf("%d\n",wynik);
+
+    return 0;
+}
+
+Zad 4
+Napisz funkcję rekurencyjną dwóch zmiennych całkowitych nieujemnych n oraz x > 0, która zwraca wartość n-tego wyrazu ciągu (an) zdefiniowanego w następujący sposób: początkowy wyraz a0 jest liczbą naturalną równą x, a każdy kolejny jest o 12 większy od poprzedniego, jeśli poprzedni nie był podzielny przez 5 albo kolejny jest 5 razy mniejszy w przeciwnym razie. Warto zauważyć, że przy dowolnym określeniu początkowego wyrazu ciąg ten od pewnego miejsca staje się okresowy. Przez cykl rozumiemy dowolny skończony podciąg tego ciągu złożony z kolejnych jego wyrazów, w którym początek i koniec mają tą samą wartość, a wewnętrzne wartości są różne. Ponadto jeśli cykl nie zostanie wykryty na pierwszych piętnastu wyrazach ciągu (an), uznajemy że go wówczas nie ma. Odnaleźć i wypisać wszystkie możliwe cykle złożone z wyrazów nie przekraczających 100. Przy x = 1 kolejnymi wyrazami ciągu są 1,13,25,5,1,... i dalej wyrazy się powtarzają. Oznacza to, że jednym z cykli do wypisania jest 1,13,25,5,1.
+Zaznaczając od wartości x = 13 dostaniemy oczywiście cykl będący przesunięciem poprzedniego 13,25,5,1,13 - on i każdy inny tego typu również należy wypisać. Warto zaobserwować, że pewne cykle nie muszą zaczynać się od podanej wartości x, a dopiero kolejne wyrazy wchodzą w cykl jak w przypadku:
+Przy x = 65 kolejnymi wyrazami ciągu są 65,13,25,5,1,13 i cyklem do wypisania tutaj będzie 13,25,5,1,13.
+Wypisywane cykle mogą się powtarzać.
+Ponadto niektóre cykle będą miały zbyt duże wartości przekraczające 100 haj w przypadku:
+Przy x = 72 kolejnymi wyrazami ciągu są 72,84,96,108,... i dalej nie ma sensu liczyć gdyż wartość 108 jest za duża, nawet jeśli dalej pojawi się cykl to nie zostanie on wypisany.
+
+#include <stdio.h>
+
+// funkcja zwracająca n-ty wyraz ciągu (an)
+// x - początkowy wyraz ciągu
+// n - indeks wyrazu do obliczenia
+int an(int x, int n) {
+    if (n == 0) { // warunek bazowy
+        return x;
+    } else {
+        int prev = an(x, n-1); // poprzedni wyraz ciągu
+        if (prev % 5 != 0) { // warunek dla wyrazów niepodzielnych przez 5
+            return prev + 12;
+        } else { // warunek dla wyrazów podzielnych przez 5
+            return prev / 5;
+        }
+    }
+}
+
+// funkcja sprawdzająca, czy ciąg (an) ma okresowość
+// x - początkowy wyraz ciągu
+void find_cycles(int x) {
+    int a[100]; // tablica przechowująca wyrazy ciągu
+    int cycle_start = -1; // początek cyklu
+    int cycle_end = -1; // koniec cyklu
+    for (int i = 0; i < 15; i++) { // obliczamy pierwsze 15 wyrazów ciągu
+        a[i] = an(x, i);
+    }
+    for (int i = 0; i < 15; i++) { // sprawdzamy każdą możliwą długość cyklu
+        for (int j = i+1; j < 15; j++) {
+            if (a[i] == a[j]) { // jeśli znaleziono początek cyklu
+                cycle_start = i;
+                cycle_end = j;
+                break;
+            }
+        }
+        if (cycle_start >= 0) { // jeśli znaleziono cykl
+            printf("Cykl dla x = %d, długość: %d, wyrazy:", x, cycle_end - cycle_start);
+            for (int k = cycle_start; k < cycle_end; k++) {
+                printf(" %d", a[k]);
+            }
+            printf("\n");
+            break; // kończymy sprawdzanie dalszych długości cykli
+        }
+    }
+    if (cycle_start == -1) { // jeśli nie znaleziono cyklu w pierwszych 15 wyrazach
+        printf("Dla x = %d nie znaleziono cyklu o długości nieprzekraczającej 100.\n", x);
+    }
+}
+
+int main() {
+    int x = 1;
+    find_cycles(x);
+    x = 13;
+    find_cycles(x);
+    x = 65;
+    find_cycles(x);
+    x = 72;
+    find_cycles(x);
+    return 0;
+}
+
+Zad 5
+a) Napisz funkcję, otrzymującą jako argument wskaźnik do zmiennej typu int, która zwraca dwukrotność liczby wskazywanej przez argument.
+b) Napisz funkcję, otrzymującą jako argumenty zmienną typu unsigned int oraz wskaźnik do zmiennej typu unsigned int. Funkcja ma zwracać wskaźnik, który wskazuje na średnią arytmetyczną liczby całkowitej z pierwszego argumentu i liczby całkowitej wskazywanej przez drugi argument.
+
+#include <stdio.h>
+
+int double_value(int* ptr)
+{
+    return (*ptr) * 2;
+}
+
+unsigned int* avg(unsigned int num1, unsigned int* ptr)
+{
+    static unsigned int result;
+    result = (num1 + (*ptr)) / 2;
+    return &result;
+}
+
+int main()
+{
+
+}
+
+Zad 6
+Napisz funkcję, która otrzymuje dwa argumenty dodatnią liczbę całkowitą n oraz n-elementową tablicę tab o elementach typu int. Funkcja wypisze elementy tablicy w kolejności w jakiej w niej występują, tak aby elementy, których wartości się powtarzają były wypisane tylko za pierwszym razem pojawienia się w tablicy. Np. dla tablicy o elementach 7,4,6,7,5,5,8,6,7 zwrócone mają zostać wartości 7,4,6,5,8.
+
+#include <stdio.h>
+
+void funikalnosc(int n, int tab[])
+{
+    int i, j;
+    int jestunikalna;
+
+    for (i = 0; i < n; i++)
+    {
+        jestunikalna = 1;
+
+        for (j = 0; j < i; j++)
+        {
+            if (tab[i] == tab[j])
+            {
+                jestunikalna = 0;
+                break;
+            }
+        }
+
+        if (jestunikalna)
+        {
+            printf("%d ", tab[i]);
+        }
+    }
+}
+
+int main() {
+    int tab[] = {7, 4, 6, 7, 5, 5, 8, 6, 7};
+    int n = sizeof(tab) / sizeof(tab[0]);
+
+    funikalnosc(n, tab);
+
+    return 0;
+}
+
+Zad 7
+Napisz funkcję , która otrzymuje dwa argumenty dodatnią liczbę całkowitą n oraz n-elementową tablicę tab o elementach typu unsigned int. Funkcja ma zmodyfikować tablicę w taki sposób, aby jej parzyste elementy były w odwrotnej kolejności. Nieparzyste pozostawia bez zmian.
+Np. dla tablicy o elementach 4,8,1,6,3,2,9,5 zwrócona ma zostać 2,6,1,8,3,4,9,5. Elementy parzyste, czyli 4,8,6,2 mają teraz odwróconą kolejność. Elementy nieparzyste na swoich miejscach.
+
+#include <stdio.h>
+
+void odwrotnosc(unsigned int n, unsigned int tab[])
+{
+    for (unsigned int i = 0; i < n; i++)
+    {
+        if (i % 2 == 0 && i < n / 2)
+        {
+            unsigned int j = n - 1 - i;
+            unsigned int temp = tab[i];
+            tab[i] = tab[j];
+            tab[j] = temp;
+        }
+    }
+}
+
+int main() {
+    unsigned int tab[] = {4, 8, 1, 6, 3, 2, 9, 5};
+    unsigned int n = sizeof(tab) / sizeof(tab[0]);
+    printf("Tablica przed: ");
+
+    for (unsigned int i = 0; i < n; i++)
+    {
+        printf("%u ", tab[i]);
+    }
+    printf("\n");
+
+    odwrotnosc(n, tab);
+    printf("Tablica po: ");
+
+    for (unsigned int i = 0; i < n; i++)
+    {
+        printf("%u ", tab[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
