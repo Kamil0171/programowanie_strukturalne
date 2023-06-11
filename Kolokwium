@@ -297,3 +297,159 @@ int main() {
 
     return 0;
 }
+
+Zad 1
+Napisz program, który wczytuje ze standardowego wyjścia trzy liczby całkowite x, y, z. Program ma wypisać na standardowym wyjściu odpowiednią informację o wczytanym układzie:
+"wszystkie rowne", jeśli podano trzy równe wielkości;
+"rowne i mniejsze", jeśli dwie spośród wartości są równe i ta która nie jest im równa jest od nich mniejsza;
+"rowne i wieksze", jeśli dwie spośród wartości są równe i ta która nie jest im równa jest od nich większa;
+"wszystkie rozne", jeśli podane wartości są różne pomiędzy sobą;
+Dla wartości 5,8,5 program wypisze "rowne i wieksze".
+Dla wartości 3,3,2 program wypisze "rowne i mniejsze".
+Dla wartości 7,7,7 program wypise "wszystkie rowne".
+Dla wartości 2,9,4 program wypisze "wszystkie rozne".
+
+#include <stdio.h>
+
+int main() {
+    int x, y, z;
+    printf("Podaj trzy liczby całkowite: ");
+    scanf("%d %d %d", &x, &y, &z);
+
+    if (x == y && y == z) 
+    {
+        printf("wszystkie rowne\n");
+    } 
+    else if ((x == y && x > z) || (x == z && x > y) || (y == z && y > x)) 
+    {
+        printf("rowne i mniejsze\n");
+    } 
+    else if ((x == y && x < z) || (x == z && x < y) || (y == z && y < x)) 
+    {
+        printf("rowne i wieksze\n");
+    } 
+    else 
+    {
+        printf("wszystkie rozne\n");
+    }
+
+    return 0;
+}
+
+Zad 2
+Dla liczb całkowitych dodatnich będziemy zainteresowani ilorazem sumy jej wszystkich dzielników właściwych przez nią samą. Na przykład dla liczby 10 dzielnikami właściwymi są 1,2 oraz 5 to znaczy jej dzielniki bez niej samej, zatem wspominamy iloraz wynosi i10 = 1+2+5/10 = 0.8. W szczególności dla wszystkich liczb doskonałych z samej ich definicji wynosi on 1, istotnie i6 = 1+2+3/6 = 1, i28 = 1+2+4+7+14/28 = 1,.... Może on też przekraczać wartość 1 jak na przykład dla liczby 20, mamy wówczas i20 = 1+2+4+5+10/20 = 1,1. Napisać program, który spośród wszystkich liczb naturalnych dwucyfrowych odnajdzie tę o największej wartości wspomnianego ilorazu in, Wypisać jej wartość oraz wartość ilorazu z nią powiązaną.
+
+#include <stdio.h>
+
+int main() {
+    int max_number = 10;  // Liczba, dla której obliczamy maksymalny iloraz
+    float max_ratio = 0.0;  // Maksymalny iloraz
+    int i, j;
+    
+    // Sprawdzanie wszystkich dwucyfrowych liczb
+    for (i = 10; i < 100; i++) {
+        int sum_of_divisors = 0;
+        int count_of_divisors = 0;
+        
+        // Obliczanie sumy dzielników właściwych
+        for (j = 1; j < i; j++) {
+            if (i % j == 0) {
+                sum_of_divisors += j;
+                count_of_divisors++;
+            }
+        }
+        
+        // Obliczanie ilorazu
+        float ratio = (float)sum_of_divisors / i;
+        
+        // Aktualizacja maksymalnego ilorazu i liczby
+        if (ratio > max_ratio) {
+            max_ratio = ratio;
+            max_number = i;
+        }
+    }
+    
+    // Wyświetlanie wyników
+    printf("Największy iloraz: %.2f\n", max_ratio);
+    printf("Liczba powiązana z największym ilorazem: %d\n", max_number);
+    
+    return 0;
+}
+
+Zad 3
+Napisać funkcję najwiekszacyfra o jednym argumencie n, będącym nieujemną liczbą całkowitą. Funkcja ma zwracać największą cyfrę w zapisie dziesiętnym liczby n, gdy występuje ona tylko raz albo 0 gdy liczba n posiada więcej cyfr o maksymalnej wielkości. W rozwiązaniu nie używać funkcji bibliotecznych poza operacjami wejścia i wyjścia.
+Na przykład najwiekszacyfra(5824,3) = 8, bo największa cyfrą w liczbie 5824 jest 8 i występuje w niej tylko raz.
+Na przykład najwiekszacyfra(36462,3) = 0, bo największą cyfrą w liczbie 36462 jest 6 i występuje w niej więcej niż raz. Przetestować działanie funkcji na wybranych wartościach, wczytanych na standardowym wejściu i wyświetlić jej wynik przy pomocy standardowego wyjścia.
+
+#include <stdio.h>
+
+int najwiekszacyfra(int n) {
+    int max_cyfra = 0; // Inicjalizujemy największą cyfrę na wartość ujemną
+
+    // Obliczamy największą cyfrę
+    while (n > 0) {
+        int cyfra = n % 10; // Pobieramy ostatnią cyfrę
+        n /= 10; // Usuwamy ostatnią cyfrę
+
+        if (cyfra > max_cyfra) {
+            max_cyfra = cyfra;
+        } else if (cyfra == max_cyfra) {
+            return 0; // Jeśli występuje więcej niż raz, zwracamy 0
+        }
+    }
+
+    return max_cyfra; // Zwracamy największą cyfrę
+}
+
+int main() {
+    int liczba;
+    printf("Podaj liczbe: ");
+    scanf("%d", &liczba);
+
+    int wynik = najwiekszacyfra(liczba);
+    printf("Najwieksza cyfra: %d\n", wynik);
+
+    return 0;
+}
+
+Zad 4
+Napisz funckję rekrurencyjną o jednej zmiennej naturalnej n, która zwraca wartość n-tego wyrazu ciągu (an) zdefiniowanego w następujący sposób:
+początkowy wyraaz a0 = 1;
+każdy kolejny jest 5 razy mniejszy od poprzedniego, o ile poprzedni był podzielny przez 5;
+w przeciwnym razie gdy napotkamy poprzednie wyrazy, które nie są podzielne przez 5, to następne mają być na zmiane o 12 albo o 17 większe od nich;
+Wypisać wszystkie wyrazy tego ciągu aż do napotkania ponownie wyrazu o wartości 1 - on ma być ostatnim wypisanym.
+Przy prawidłowej implementacji wypisane powinny zostać 1,13,30,6,18,35,7,19,36,48,65,13,25,5,1.
+
+#include <stdio.h>
+
+int sequence(int n, int prev, int flag) {
+    if (n == 0) {
+        printf("%d ", prev);
+        return 1;
+    }
+
+    int current;
+    if (prev % 5 == 0) {
+        current = prev / 5;
+        flag = 1;
+    } else {
+        if (flag) {
+            current = prev + 12;
+            flag = 0;
+        } else {
+            current = prev + 17;
+            flag = 1;
+        }
+    }
+
+    printf("%d ", prev);
+    return sequence(n - 1, current, flag);
+}
+
+int main() {
+    int n = 15; // liczba wyrazów do wygenerowania
+
+    sequence(n, 1, 0);
+
+    return 0;
+}
