@@ -280,3 +280,41 @@ int main() {
     freeList(&head1);
     return 0;
 }
+
+
+Zadanie 3(dziala cale)
+#include <stdio.h>
+
+void uzupelnij(int n, int tablica[n][n]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == 0 || i == n - 1 || j == 0 || j == n - 1) {
+                tablica[i][j] = 0;
+            } else {
+                tablica[i][j] = 1;
+            }
+        }
+    }
+}
+
+void drukuj(int n, int tablica[n][n]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", tablica[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n = 4;
+    int tablica[n][n];
+
+    uzupelnij(n, tablica);
+    drukuj(n, tablica);
+
+    return 0;
+}
+
+
+
