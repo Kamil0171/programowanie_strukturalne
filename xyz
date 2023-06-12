@@ -317,4 +317,296 @@ int main() {
 }
 
 
+#include <stdio.h>
+#include <stdlib.h>
+//zad 1
+void usun_m(char* tablica) {
+    if (tablica == NULL)
+        return;
 
+    int i, j;
+    for (i = 0, j = 0; tablica[i] != '\0'; i++) {
+        if (tablica[i] != 'm') {
+            tablica[j] = tablica[i];
+            j++;
+        }
+    }
+    tablica[j] = '\0';
+}
+int main() {
+    char tablica[] = "marmolada";
+    printf("Przed: %s\n", tablica);
+    usun_m(tablica);
+    printf("Po: %s\n", tablica);
+    return 0;
+}
+//zad2
+int licz_samogloski(const char* tablica) {
+    if (tablica == NULL)
+        return 0;
+    int licznik = 0;
+    int i;
+    char znak;
+
+    for (i = 0; tablica[i] != '\0'; i++) {
+        znak = tablica[i];
+        if (znak == 'a' || znak == 'o' || znak == 'e' || znak == 'i' || znak == 'u' || znak == 'y') {
+            licznik++;
+        }
+    }
+    return licznik;
+}
+int main() {
+    char tablica[] = "master";
+    int liczba_samoglosek = licz_samogloski(tablica);
+    printf("Liczba samoglosek: %d\n", liczba_samoglosek);
+    return 0;
+}
+//zad2
+int licz_samogloski(const char* tablica) {
+    if (tablica == NULL)
+        return 0;
+    int licznik = 0;
+    int i;
+    char znak;
+
+    for (i = 0; tablica[i] != '\0'; i++) {
+        znak = tablica[i];
+        if (znak == 'a' || znak == 'o' || znak == 'e' || znak == 'i' || znak == 'u' || znak == 'y') {
+            licznik++;
+        }
+    }
+    return licznik;
+}
+int main() {
+    char tablica[] = "master";
+    int liczba_samoglosek = licz_samogloski(tablica);
+    printf("Liczba samoglosek: %d\n", liczba_samoglosek);
+    return 0;
+}
+//zad 3
+void uzupelnij_tablice(int n, int tab[n][n]) {
+    if (n <= 0)
+        return;
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            if (i == 0 || i == n - 1 || j == 0 || j == n - 1) {
+                // Uzupełnienie brzegu zerami
+                tab[i][j] = 0;
+            } else {
+                // Uzupełnienie środka jedynkami
+                tab[i][j] = 1;
+            }
+        }
+    }
+}
+void wyswietl_tablice(int n, int tab[n][n]) {
+    int i, j;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%d ", tab[i][j]);
+        }
+        printf("\n");
+    }
+}
+int main() {
+    int n = 4;
+    int tablica[n][n];
+    uzupelnij_tablice(n, tablica);
+    wyswietl_tablice(n, tablica);
+    return 0;
+}
+//zad 4
+void zamien_wiersze(int** tab, int n, int m) {
+    if (n <= 1)
+        return;
+
+    int i, j;
+    int* temp;
+
+    for (i = 0; i < n - 1; i += 2) {
+        temp = tab[i];
+        tab[i] = tab[i + 1];
+        tab[i + 1] = temp;
+    }
+}
+void wyswietl_tablice(int** tab, int n, int m) {
+    int i, j;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            printf("%d ", tab[i][j]);
+        }
+        printf("\n");
+    }
+}
+int main() {
+    int n = 5;
+    int m = 3;
+
+    int** tablica = (int**)malloc(n * sizeof(int*));
+    int i, j;
+    for (i = 0; i < n; i++) {
+        tablica[i] = (int*)malloc(m * sizeof(int));
+        for (j = 0; j < m; j++) {
+            tablica[i][j] = i * m + j + 1;
+        }
+    }
+    printf("Przed zamianą:\n");
+    wyswietl_tablice(tablica, n, m);
+    zamien_wiersze(tablica, n, m);
+    printf("Po zamianie:\n");
+    wyswietl_tablice(tablica, n, m);
+    for (i = 0; i < n; i++) {
+        free(tablica[i]);
+    }
+    free(tablica);
+
+    return 0;
+}
+//zad5
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+float srednia_arytmetyczna(Node* head) {
+    if (head == NULL)
+        return 0.0;
+
+    int suma = 0;
+    int licznik = 0;
+
+    Node* current = head;
+    while (current != NULL) {
+        suma += current->data;
+        licznik++;
+        current = current->next;
+    }
+
+    if (licznik == 0)
+        return 0.0;
+
+    return (float)suma / licznik;
+}
+void dodaj_element(Node** head, int liczba) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    new_node->data = liczba;
+    new_node->next = NULL;
+
+    if (*head == NULL) {
+        *head = new_node;
+    } else {
+        Node* current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = new_node;
+    }
+}
+void zwolnij_liste(Node* head) {
+    Node* current = head;
+    Node* next;
+
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+}
+int main() {
+    Node* lista = NULL;
+    dodaj_element(&lista, 10);
+    dodaj_element(&lista, 20);
+    dodaj_element(&lista, 30);
+    float srednia = srednia_arytmetyczna(lista);
+    printf("Srednia arytmetyczna: %.2f\n", srednia);
+    zwolnij_liste(lista);
+    return 0;
+}
+//zad 6
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+void usun_elementy(Node** head) {
+    if (*head == NULL)
+        return;
+    Node* current = *head;
+    Node* previous = NULL;
+    
+    while (current != NULL) {
+        if (current->data == 4) {
+            if (previous == NULL) {
+                // Usunięcie pierwszego elementu
+                *head = current->next;
+                free(current);
+                current = *head;
+            } else {
+                // Usunięcie elementu w środku lub na końcu
+                previous->next = current->next;
+                free(current);
+                current = previous->next;
+            }
+        } else {
+            // Przejście do następnego elementu
+            previous = current;
+            current = current->next;
+        }
+    }
+}
+void dodaj_element(Node** head, int liczba) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    new_node->data = liczba;
+    new_node->next = NULL;
+    
+    if (*head == NULL) {
+        *head = new_node;
+    } else {
+        Node* current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = new_node;
+    }
+}
+void zwolnij_liste(Node* head) {
+    Node* current = head;
+    Node* next;
+    
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+}
+void wyswietl_liste(Node* head) {
+    Node* current = head;
+    
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+}
+int main() {
+    Node* lista = NULL;
+    dodaj_element(&lista, 1);
+    dodaj_element(&lista, 6);
+    dodaj_element(&lista, 4);
+    dodaj_element(&lista, 7);
+    dodaj_element(&lista, 5);
+    dodaj_element(&lista, 4);
+    dodaj_element(&lista, 9);
+    dodaj_element(&lista, 1);
+    dodaj_element(&lista, 2);
+    dodaj_element(&lista, 4);
+    printf("Przed usunięciem: ");
+    wyswietl_liste(lista);
+    usun_elementy(&lista);
+    printf("Po usunięciu: ");
+    wyswietl_liste(lista);
+    zwolnij_liste(lista);
+    return 0;
+}
